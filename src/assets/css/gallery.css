@@ -10,4 +10,27 @@
     grid-row: span 2; /* This makes the child element cover 2 rows */
     grid-column: span 1; /* This makes the child element cover 1 column */
   }
+
+  /* Add this CSS in your stylesheet or component style block */
+.custom-file-upload {
+    cursor: pointer;
+    display: inline-block;
+    text-align: center;
+    
+  }
+  
+  .custom-file-upload input[type="file"] {
+    display: none;
+  }
+
+  .card{
+    height: 100%;
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.3s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
   

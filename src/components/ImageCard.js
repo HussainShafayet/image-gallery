@@ -4,7 +4,7 @@ import '.././assets/css/imagecard.css'
 
 const ImageCard = (props) => {
   const [isHovered, setIsHovered] = useState(false);
-  let {isSelect, imageUrl,onUpdate} = props;
+  let {isSelect, imageUrl} = props;
 
   const handleMouseEnter = () => {
     setIsHovered(true);
@@ -20,7 +20,6 @@ const ImageCard = (props) => {
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
-    {isSelect}ss
       <div className={`${isSelect? 'checkbox-selected': 'checkbox-overlay'} ${isHovered ? 'show' : ''}`}>
         <input type="checkbox" checked={isSelect} readOnly className="position-absolute" id="checkbox" />
       </div>
