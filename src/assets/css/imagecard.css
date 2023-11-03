@@ -1,10 +1,14 @@
 .card {
   position: relative;
-  width: 300px;
-  height: 200px;
+  /*width: 300px;*/
+  /*height: 200px;*/
+  height: 100%;
   overflow: hidden;
   cursor: pointer;
   transition: transform 0.3s;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .checkbox-overlay {
@@ -26,7 +30,7 @@
   position: absolute;
   top: 0;
   left: 20 !important;
-  display: none;
+  /*display: none;*/
   width: 100%;
   height: 100%;
   justify-content: start;
@@ -40,6 +44,11 @@
 }
 
 .checkbox-overlay input {
+  cursor: pointer;
+  width: 20px;
+  height: 20px;
+}
+.checkbox-selected input {
   cursor: pointer;
   width: 20px;
   height: 20px;

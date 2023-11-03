@@ -4,7 +4,7 @@ import Gallery from './components/gallery';
 
 function App() {
   return (
-    <div className='bg-primary '>
+    <div>
       <Gallery />
     </div>
   );

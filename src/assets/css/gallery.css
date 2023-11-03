@@ -1,0 +1,13 @@
+.gridLayout {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: auto auto;
+    grid-gap: 10px;
+    height: 300px; /* Set a fixed height for the container */
+  }
+  
+  .child {
+    grid-row: span 2; /* This makes the child element cover 2 rows */
+    grid-column: span 1; /* This makes the child element cover 1 column */
+  }
+  

@@ -2,8 +2,9 @@
 import React, { useState } from 'react';
 import '.././assets/css/imagecard.css'
 
-const ImageCard = ({ imageUrl, onSelect }) => {
+const ImageCard = (props) => {
   const [isHovered, setIsHovered] = useState(false);
+  let {isSelect, imageUrl,onUpdate} = props;
 
   const handleMouseEnter = () => {
     setIsHovered(true);
@@ -19,8 +20,9 @@ const ImageCard = ({ imageUrl, onSelect }) => {
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
-      <div className={`checkbox-overlay ${isHovered ? 'show' : ''}`}>
-        <input type="checkbox" className="position-absolute" id="checkbox" />
+    {isSelect}ss
+      <div className={`${isSelect? 'checkbox-selected': 'checkbox-overlay'} ${isHovered ? 'show' : ''}`}>
+        <input type="checkbox" checked={isSelect} readOnly className="position-absolute" id="checkbox" />
       </div>
       <img src={imageUrl} className="img-fluid" alt="Image" />
     </div>
