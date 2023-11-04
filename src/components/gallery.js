@@ -4,20 +4,9 @@ import '.././assets/css/gallery.css';
 import API_BASE_URL from '../apiConfig';
 
 const Gallery = () => {
-   
-    const imageList = [
-        { id: 1, imageUrl: 'http://codeskulptor-assets.commondatastorage.googleapis.com/assets_clock_background.png' , isSelect: false, isFeatured: true},
-        { id: 2, imageUrl: 'http://codeskulptor-assets.commondatastorage.googleapis.com/assets_clock_background.png' , isSelect: false, isFeatured: false},
-        { id: 3, imageUrl: 'http://codeskulptor-assets.commondatastorage.googleapis.com/assets_clock_background.png' , isSelect: false, isFeatured: false},
-        { id: 4, imageUrl: 'http://codeskulptor-assets.commondatastorage.googleapis.com/assets_clock_background.png' , isSelect: false, isFeatured: false},
-        { id: 5, imageUrl: 'http://codeskulptor-assets.commondatastorage.googleapis.com/assets_clock_background.png' , isSelect: false, isFeatured: false},
-        { id: 6, imageUrl: 'http://codeskulptor-assets.commondatastorage.googleapis.com/assets_clock_background.png' , isSelect: false, isFeatured: false},
-        { id: 7, imageUrl: 'http://codeskulptor-assets.commondatastorage.googleapis.com/assets_clock_background.png' , isSelect: false, isFeatured: false},
-        { id: 8, imageUrl: 'http://codeskulptor-assets.commondatastorage.googleapis.com/assets_clock_background.png' , isSelect: false, isFeatured: false},
-        
-        // Add more image objects as needed
-      ];
       const [images, setImages] = useState([]);
+      const [selectedCount, setSelectCount] = useState(0);
+
       useEffect((()=>{
         let url = `${API_BASE_URL}/imagepost/`;
         const requestOptions = {
@@ -35,23 +24,24 @@ const Gallery = () => {
         const handleAddImage = async (e)=>{
             e.preventDefault();
             let url =  `${API_BASE_URL}/imagepost/`;
-            let postInfo = {
-                file: e.target.files[0],
-              isSelect: false,
-              isFeatured: false,
-            };
+
             const formData = new FormData();
             formData.append('file',  e.target.files[0]);
-           const requestOptions = {
-             method: "POST",
-             body: formData,
-           };
+            const requestOptions = {
+                method: "POST",
+                body: formData,
+            };
             fetch(url,
-              requestOptions
+                requestOptions
             )
-              .then((res) => res.json())
-              .then((data) => console.log('data',data));
-          }
+                .then((res) => res.json())
+                .then((response) => {
+                console.log('data',response)
+
+                // add the new image to the list
+                setImages((prevImages) => [...prevImages, response.data]);
+            });
+            }
 
           const handleImageClick = (imageId) => {
             const updatedImages = images.map((image) => {
@@ -65,25 +55,41 @@ const Gallery = () => {
             calculateTotal()
         };
 
-    //const handleAddImage = () => {
-    //        const newItem = {
-    //            id: Math.random()*10,
-    //            imageUrl: 'http://codeskulptor-assets.commondatastorage.googleapis.com/assets_clock_background.png',
-    //            isSelect: false,
-    //            isFeatured: false,
-    //        };
-    
-    //        const newItems = [...images, newItem];
-    //        setImages(newItems);
-    //        calculateTotal();
-    //};
-    const handleDeleteSelected = () => {
-        const updatedImageList = images.filter((image) => !image.isSelect);
-        setImages(updatedImageList);
-        calculateTotal();
+    const handleDeleteSelected = async () => {
+        let deleteList = [];
+        const updatedImageList = images.filter((image) => {
+            if(image.isSelect){
+                deleteList.push(image.id);
+            }else{
+                return image;
+            }
+        });
+        if (deleteList.length>0) {
+            let url =  `${API_BASE_URL}/imagedelete/`;
+       
+        const requestOptions = {
+            method: "DELETE",
+            headers:{"Content-Type":"application/json"},
+            body: JSON.stringify(deleteList),
+        };
+        fetch(url,
+            requestOptions
+        )
+            .then((res) => res.json())
+            .then((response) => {
+            console.log('data',response)
+
+            //udpate images list
+            setImages(updatedImageList);
+            const totalItemCount = updatedImageList.filter((image) => image.isSelect).length;
+            setSelectCount(totalItemCount);
+           
+        });
+        }
+        
     };
 
-    const [selectedCount, setSelectCount] = useState(0);
+    
     const calculateTotal = () => {
 		const totalItemCount = images.filter((image) => image.isSelect).length;
         console.log(totalItemCount,images.filter((image) => image.isSelect));
