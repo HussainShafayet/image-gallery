@@ -2,8 +2,9 @@
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     grid-template-rows: auto auto;
+    padding: 2rem;
     grid-gap: 10px;
-    height: 300px; /* Set a fixed height for the container */
+    min-height: 300px; /* Set a fixed height for the container */
   }
   
   .child {
@@ -16,7 +17,6 @@
     cursor: pointer;
     display: inline-block;
     text-align: center;
-    
   }
   
   .custom-file-upload input[type="file"] {
@@ -32,5 +32,17 @@
     justify-content: center;
     align-items: center;
   }
+
+  .galleryArea{
+    width: 80vw;
+    min-height:90vh;
+    background-color:azure;
+    /*border-radius: 10px;*/
+}
+.galleryArea input {
+  cursor: pointer;
+  width: 20px;
+  height: 20px;
+}
   
   
