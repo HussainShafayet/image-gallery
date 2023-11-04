@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import ImageCard from './ImageCard';
 import '.././assets/css/gallery.css';
 import API_BASE_URL from '../apiConfig';
+import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 
 const Gallery = () => {
     const [images, setImages] = useState([]);
@@ -117,6 +118,20 @@ const Gallery = () => {
         const totalItemCount = data.filter((image) => image.isSelect).length;
         setSelectedCount(totalItemCount);
     };
+
+
+
+    const onDragEnd = (result) => {
+        if (!result.destination) {
+          return;
+        }
+    
+        const reorderedImages = [...images];
+        const [reorderedImage] = reorderedImages.splice(result.source.index, 1);
+        reorderedImages.splice(result.destination.index, 0, reorderedImage);
+    
+        setImages(reorderedImages);
+      };
   return (
     <div>
         <div className='d-flex justify-content-center align-items-center w-100 mt-2'>
@@ -135,7 +150,7 @@ const Gallery = () => {
                     
                 </div>
                 <hr className='m-0'/>
-
+                
                 <div className="gridLayout">
                     {images.map((item, index)=>
                     <div key={item.id} className={`${index==0 ? 'child' : ''}`}  onClick={() => handleImageClick(item)} >
@@ -149,6 +164,37 @@ const Gallery = () => {
                         </label>
                     </div>
                 </div>
+                {/*<div className='gridLayout'>
+                    <DragDropContext onDragEnd={onDragEnd}>
+                        <Droppable droppableId='Gallery'>
+                            {(provided) => (
+                            <div
+                                ref={provided.innerRef}
+                                {...provided.droppableProps}
+                            >
+                                {images.map((image, index) => (
+                                <Draggable key={image.id.toString()} draggableId={image.id.toString()} index={index}>
+                                    {(provided) => (
+                                    <div
+                                        ref={provided.innerRef}
+                                        {...provided.draggableProps}
+                                        {...provided.dragHandleProps}
+                                    >
+                                        <div key={image.id} className={`${index === 0 ? '' : ''}`}  onClick={() => handleImageClick(image)} >
+                                            <ImageCard isSelect={image.isSelect} imageUrl={API_BASE_URL + image.file} />
+                                        </div>
+
+                                    </div>
+                                    )}
+                                </Draggable>
+                                ))}
+                            </div>
+                            )}
+                        </Droppable>
+                    </DragDropContext>
+                </div>*/}
+
+
             </div>
         </div>
     </div>
