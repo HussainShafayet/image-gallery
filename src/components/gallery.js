@@ -3,6 +3,7 @@ import ImageCard from './ImageCard';
 import '.././assets/css/gallery.css';
 import API_BASE_URL from '../apiConfig';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+import GalleryHeader from './galleryHeader';
 
 const Gallery = () => {
     const [images, setImages] = useState([]);
@@ -150,12 +151,8 @@ const Gallery = () => {
         <div className='d-flex justify-content-center align-items-center w-100 p-3'>
             <div className='galleryArea shadow bg-white rounded'>
                 <div className='p-3 d-flex justify-content-between align-items-center'>
-                    <div className="form-check d-flex justify-content-start align-items-center">
-                        <input className="form-check-input mt-0" type="checkbox" checked={(selectedCount>0)? true : false} readOnly />
-                        <label className="form-check-label fw-bold" style={{marginLeft:6 +'px'}} htmlFor="flexCheckChecked">
-                            {selectedCount} Files Selected
-                        </label>
-                    </div>
+
+                    <GalleryHeader selectedCount={selectedCount} />
 
                     {selectedCount>0 && 
                         <span className="text-danger fw-bold" style={{cursor:'pointer'}} onClick={handleDeleteSelected}>Delete Files</span>
@@ -166,9 +163,9 @@ const Gallery = () => {
                 
                 <div className="gallery p-2">
                     {images.map((item, index)=>
-                    <div key={item.id} className={`${index === 0 ? 'featured' : ''}`}  onClick={() => handleImageClick(item)} >
-                    <ImageCard isSelect={item.isSelect} imageUrl={API_BASE_URL + item.file} />
-                    </div>
+                        <div key={item.id} className={`${index === 0 ? 'featured' : ''}`}  onClick={() => handleImageClick(item)} >
+                            <ImageCard isSelect={item.isSelect} imageUrl={API_BASE_URL + item.file} />
+                        </div>
                     )}
                     <div className='imgAdd'>
                         <label htmlFor="imageInput" className="custom-file-upload card" >
