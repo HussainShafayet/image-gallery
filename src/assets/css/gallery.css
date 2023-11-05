@@ -32,6 +32,9 @@ body {
     object-fit: cover;
   }
 }
+.galleryArea{
+  min-height: 90vh;
+}
 
 /* Add this CSS in your stylesheet or component style block */
 .custom-file-upload {
