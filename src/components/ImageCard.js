@@ -16,7 +16,7 @@ const ImageCard = (props) => {
 
   return (
     <div
-      className={`card image-card m-1 ${isHovered ? 'hovered' : ''}`}
+      className={`card image-card ${isHovered ? 'hovered' : ''}`}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >

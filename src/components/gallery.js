@@ -9,6 +9,7 @@ const Gallery = () => {
     const [selectedCount, setSelectedCount] = useState(
     images.filter((image) => image.isSelect).length
     );
+    const imageUrl = require('../assets/images/photo.png');
     
 
     useEffect((()=>{
@@ -134,7 +135,7 @@ const Gallery = () => {
       };
   return (
     <div>
-        <div className='d-flex justify-content-center align-items-center w-100 mt-2'>
+        <div className='d-flex justify-content-center align-items-center w-100 p-3'>
             <div className='galleryArea shadow bg-white rounded'>
                 <div className='p-3 d-flex justify-content-between align-items-center'>
                     <div className="form-check d-flex justify-content-start align-items-center">
@@ -151,16 +152,21 @@ const Gallery = () => {
                 </div>
                 <hr className='m-0'/>
                 
-                <div className="gridLayout">
+                <div className="gallery p-2">
                     {images.map((item, index)=>
-                    <div key={item.id} className={`${index==0 ? 'child' : ''}`}  onClick={() => handleImageClick(item)} >
+                    <div key={item.id} className={`${index === 0 ? 'featured' : ''}`}  onClick={() => handleImageClick(item)} >
                     <ImageCard isSelect={item.isSelect} imageUrl={API_BASE_URL + item.file} />
                     </div>
                     )}
-                    <div>
+                    <div className='imgAdd'>
                         <label htmlFor="imageInput" className="custom-file-upload card" >
                             <input type="file" id="imageInput" accept="image/*" onChange={handleAddImage} />
-                                Upload Image
+                            
+                            <div className='labelText'>
+                                <img src={imageUrl} alt='img icon' className='mb-2' style={{height:20+'px',width:20+'px'}} ></img>
+                                Add Images
+                            </div>
+                             
                         </label>
                     </div>
                 </div>
@@ -193,6 +199,8 @@ const Gallery = () => {
                         </Droppable>
                     </DragDropContext>
                 </div>*/}
+            
+                
 
 
             </div>
