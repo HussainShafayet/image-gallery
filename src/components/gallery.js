@@ -54,31 +54,43 @@ const Gallery = () => {
         });
         }
 
-    const handleImageClick = (image) => {
-        let url =  `${API_BASE_URL}/imageedit/`;
-    
-        const requestOptions = {
-            method: "PUT",
-            headers:{"Content-Type":"application/json"},
-            body: JSON.stringify({id:image.id,isSelect: !image.isSelect}),
-        };
-        fetch(url,
-            requestOptions
-        )
-            .then((res) => res.json())
-            .then((response) => {
-            console.log('data edit',response)
+    const handleImageClick = (imageObj) => {
+        const updatedImages = images.map((image) => {
+            if (image.id === imageObj.id) {
+                image.isSelect = !image.isSelect;
+            }
+            return image;
+            });
 
-            //udpate images list
-            const updatedImageData = response.data;
-            setImages((prevImages) =>
-                prevImages.map((image) =>
-                image.id === updatedImageData.id ? updatedImageData : image
-                )
-            );
-            calculateTotal(images);
+            setImages(updatedImages);
+            calculateTotal(updatedImages)
         
-        });
+        //backend update not neccessary for select
+        
+        //let url =  `${API_BASE_URL}/imageedit/`;
+    
+        //const requestOptions = {
+        //    method: "PUT",
+        //    headers:{"Content-Type":"application/json"},
+        //    body: JSON.stringify({id:image.id,isSelect: !image.isSelect}),
+        //};
+        //fetch(url,
+        //    requestOptions
+        //)
+        //    .then((res) => res.json())
+        //    .then((response) => {
+        //    console.log('data edit',response)
+
+        //    //udpate images list
+        //    const updatedImageData = response.data;
+        //    setImages((prevImages) =>
+        //        prevImages.map((image) =>
+        //        image.id === updatedImageData.id ? updatedImageData : image
+        //        )
+        //    );
+        //    calculateTotal(images);
+        
+        //});
     };
 
     const handleDeleteSelected = async () => {
