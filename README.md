@@ -46,8 +46,8 @@ image-gallery/
 ### 1️⃣ Clone the Repository
 
 ```bash
-git clone https://github.com/YOUR-USERNAME/YOUR-REPO-NAME.git
-cd YOUR-REPO-NAME
+git clone https://github.com/HussainShafayet/image-gallery.git
+cd image-gallery
 ```
 ### 1. Install Dependencies
 ```bash
